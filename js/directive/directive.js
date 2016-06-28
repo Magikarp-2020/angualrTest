@@ -42,115 +42,114 @@ directive.directive('demo', function () {
             }
 
         };
+    })
+    .directive('chooseGoodsType', function () {
+        return {
+            restrict: "A",
+            scope: {
+                skin: "@",
+                val: "=",
+                getValue: "&"
+            },
+            transclude: true,
+            template: '<div ng-click="showBox($event)" ng-transclude></div>' +
+            '<div class="show_box " ng-class="className">' +
+            '    <ul class="show_box_title clearfix">' +
+            '        <li ng-class="{active:loadStatus == 1}" ng-click="changeNav(1,$event)">大类</li>' +
+            '        <li ng-class="{active:loadStatus == 2}" ng-click="changeNav(2,$event)">中类</li>' +
+            '        <li ng-class="{active:loadStatus == 3}" ng-click="changeNav(3,$event)">小类</li>' +
+            '    </ul>' +
+            '    <ul class="show_box_content clearfix">' +
+            '        <li ng-class="{active:loadStatus == 1}">' +
+            '            <a href="javascript:;" ng-repeat="class in bigClasses" ng-click="getMiddleClasses(class,$event)">{{class.bigclass}}</a>' +
+            '        </li>' +
+            '        <li ng-class="{active:loadStatus == 2}">' +
+            '            <a href="javascript:;" ng-repeat="class in middleClasses" ng-click="getSmallClasses(class,$event)">{{class.middleclass}}</a>' +
+            '        </li>' +
+            '        <li ng-class="{active:loadStatus == 3}">' +
+            '            <a href="javascript:;" ng-repeat="class in smallClasses" ng-click="chooseOver(class,$event)">{{class.smallclass}}</a>' +
+            '        </li>' +
+            '    </ul>' +
+            '</div>',
+            controller: ["$scope", "$http", function ($scope, $http) {
+                $scope.className = {};
+                $scope.className[$scope.skin] = true;
+                $scope.loadStatus = 1;
+
+                var buf = {
+                    bigClass: {},
+                    middleClass: {},
+                    smallClass: {}
+                };
+                $scope.changeNav = function (status, $event) {
+                    $event.stopPropagation();
+                    $scope.loadStatus = status;
+                };
+
+                $scope.showBox = function ($event) {
+                    $event.stopPropagation();
+                    $scope.className['active'] = true;
+                };
+
+                function getData(data) {
+                    return $http({
+                        url: "http://localhost:8888/speed/baseInstallPrice/queryBaseInstallPrice",
+                        method: "POST",
+                        params: data
+                    })
+                }
+
+                getData().then(function (res) {
+                    console.log(res);
+                    var data = res.data;
+                    $scope.bigClasses = data.data;
+                });
+
+                $scope.getMiddleClasses = function (data, $event) {
+                    $event.stopPropagation();
+                    buf.bigClass = data;
+                    buf.middleClass = {};
+                    buf.smallClass = {};
+
+                    $scope.loadStatus = 2;
+                    console.log(data);
+                    getData({
+                        bigclassno: data.bigclassno
+                    }).then(function (res) {
+                        console.log(res);
+                        var data = res.data;
+                        $scope.middleClasses = data.data;
+                    });
+                };
+
+                $scope.getSmallClasses = function (data, $event) {
+                    $event.stopPropagation();
+                    buf.middleClass = data;
+                    buf.smallClass = {};
+                    $scope.loadStatus = 3;
+
+                    getData({
+                        middleclassno: data.middleclassno
+                    }).then(function (res) {
+                        console.log(res);
+                        var data = res.data;
+                        $scope.smallClasses = data.data;
+                    });
+                };
+
+                $scope.chooseOver = function (data, $event) {
+                    $event.stopPropagation();
+                    buf.smallClass = data;
+                    var type = angular.extend({}, buf);
+                    $scope.val = type;
+                };
+
+                var $document = $(document);
+                $document.click(function () {
+                    console.log('1111');
+                    $scope.className['active'] = false;
+                    $scope.$apply();
+                });
+            }]
+        }
     });
-// 选择商品类型
-directive.directive('chooseGoodsType', function () {
-    return {
-        restrict: "A",
-        scope: {
-            skin: "@",
-            val: "=",
-            getValue: "&"
-        },
-        transclude: true,
-        template: '<div ng-click="showBox($event)" ng-transclude></div>' +
-        '<div class="show_box " ng-class="className">' +
-        '    <ul class="show_box_title clearfix">' +
-        '        <li ng-class="{active:loadStatus == 1}" ng-click="changeNav(1,$event)">大类</li>' +
-        '        <li ng-class="{active:loadStatus == 2}" ng-click="changeNav(2,$event)">中类</li>' +
-        '        <li ng-class="{active:loadStatus == 3}" ng-click="changeNav(3,$event)">小类</li>' +
-        '    </ul>' +
-        '    <ul class="show_box_content clearfix">' +
-        '        <li ng-class="{active:loadStatus == 1}">' +
-        '            <a href="javascript:;" ng-repeat="class in bigClasses" ng-click="getMiddleClasses(class,$event)">{{class.bigclass}}</a>' +
-        '        </li>' +
-        '        <li ng-class="{active:loadStatus == 2}">' +
-        '            <a href="javascript:;" ng-repeat="class in middleClasses" ng-click="getSmallClasses(class,$event)">{{class.middleclass}}</a>' +
-        '        </li>' +
-        '        <li ng-class="{active:loadStatus == 3}">' +
-        '            <a href="javascript:;" ng-repeat="class in smallClasses" ng-click="chooseOver(class,$event)">{{class.smallclass}}</a>' +
-        '        </li>' +
-        '    </ul>' +
-        '</div>',
-        controller: ["$scope", "$http", function ($scope, $http) {
-            $scope.className = {};
-            $scope.className[$scope.skin] = true;
-            $scope.loadStatus = 1;
-
-            var buf = {
-                bigClass: {},
-                middleClass: {},
-                smallClass: {}
-            };
-            $scope.changeNav = function (status, $event) {
-                $event.stopPropagation();
-                $scope.loadStatus = status;
-            };
-
-            $scope.showBox = function ($event) {
-                $event.stopPropagation();
-                $scope.className['active'] = true;
-            };
-
-            function getData(data) {
-                return $http({
-                    url: "http://localhost:8888/speed/baseInstallPrice/queryBaseInstallPrice",
-                    method: "POST",
-                    params: data
-                })
-            }
-
-            getData().then(function (res) {
-                console.log(res);
-                var data = res.data;
-                $scope.bigClasses = data.data;
-            });
-
-            $scope.getMiddleClasses = function (data, $event) {
-                $event.stopPropagation();
-                buf.bigClass = data;
-                buf.middleClass = {};
-                buf.smallClass = {};
-
-                $scope.loadStatus = 2;
-                console.log(data);
-                getData({
-                    bigclassno: data.bigclassno
-                }).then(function (res) {
-                    console.log(res);
-                    var data = res.data;
-                    $scope.middleClasses = data.data;
-                });
-            };
-
-            $scope.getSmallClasses = function (data, $event) {
-                $event.stopPropagation();
-                buf.middleClass = data;
-                buf.smallClass = {};
-                $scope.loadStatus = 3;
-
-                getData({
-                    middleclassno: data.middleclassno
-                }).then(function (res) {
-                    console.log(res);
-                    var data = res.data;
-                    $scope.smallClasses = data.data;
-                });
-            };
-
-            $scope.chooseOver = function (data, $event) {
-                $event.stopPropagation();
-                buf.smallClass = data;
-                var type = angular.extend({}, buf);
-                $scope.val = type;
-            };
-
-            var $document = $(document);
-            $document.click(function () {
-                console.log('1111');
-                $scope.className['active'] = false;
-                $scope.$apply();
-            });
-        }]
-    }
-});
