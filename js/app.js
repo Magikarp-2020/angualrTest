@@ -7,5 +7,7 @@ var app = angular.module('app',['directive']);
 app.controller('mainController',function ($scope){
     $scope.demo = 1;
     $scope.demo2 = 2;
+
+    
 });
 

@@ -4,18 +4,30 @@
     <meta charset="UTF-8">
     <title>Test</title>
 </head>
+<link rel="stylesheet" href="css/chooseGoodsType.css">
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/angular.js/1.5.7/angular.js"></script>
 <script src="js/directive/directive.js"></script>
 <script src="js/app.js"></script>
 <body ng-app="app" ng-controller="mainController">
-    {{demo}}
-    {{demo2}}
-    <demo></demo>
+{{demo}}
+{{demo2}}
+<demo></demo>
 <!--< name="{{demo}}" amount="demo2">-->
 <div scope-demo style="width: 100px;height: 100px;background: red;">
     123333
 </div>
 <!--</>-->
+
+<div choose-goods-type="" val="testGoodsType1" skin="12312" style="position: relative;">
+    测试1
+</div>
+
+
+
+<div choose-goods-type="" val="testGoodsType2" skin="12312" style="position: relative;">
+    测试2
+</div>
 
 </body>
 </html>
