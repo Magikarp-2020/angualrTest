@@ -1,7 +1,7 @@
 /**
  * Created by lichao on 2016/6/28.
  */
-var app = angular.module('app',['directive']);
+var app = angular.module('app',['directive','ajaxHttp']);
 
 
 app.controller('mainController',function ($scope){
