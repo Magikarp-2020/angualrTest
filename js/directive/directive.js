@@ -26,7 +26,6 @@ directive.directive('demo', function () {
             "</div>",
             transclude: true,
             controller: ["$scope", function ($scope) {
-                console.log($scope.name);
                 /**
                  name: "@" （值传递，单向绑定）：
                  "@"符号表示变量是值传递。指令会检索从父级scope中传递而来字符串中的值。指令可以使用该值但无法修改，是最常用的变量。
@@ -100,7 +99,6 @@ directive.directive('demo', function () {
                 }
 
                 getData().then(function (res) {
-                    console.log(res);
                     var data = res.data;
                     $scope.bigClasses = data.data;
                 });
@@ -112,11 +110,9 @@ directive.directive('demo', function () {
                     buf.smallClass = {};
 
                     $scope.loadStatus = 2;
-                    console.log(data);
                     getData({
                         bigclassno: data.bigclassno
                     }).then(function (res) {
-                        console.log(res);
                         var data = res.data;
                         $scope.middleClasses = data.data;
                     });
@@ -131,7 +127,6 @@ directive.directive('demo', function () {
                     getData({
                         middleclassno: data.middleclassno
                     }).then(function (res) {
-                        console.log(res);
                         var data = res.data;
                         $scope.smallClasses = data.data;
                     });
@@ -147,7 +142,6 @@ directive.directive('demo', function () {
 
                 var $document = $(document);
                 $document.click(function () {
-                    console.log('1111');
                     $scope.className['active'] = false;
                     $scope.$apply();
                 });
