@@ -8,6 +8,7 @@ app.controller('mainController',function ($scope){
     $scope.demo = 1;
     $scope.demo2 = 2;
 
+    $scope.demoArr = [{},{},{},{}]
     
 });
 

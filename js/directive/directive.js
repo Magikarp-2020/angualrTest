@@ -141,6 +141,7 @@ directive.directive('demo', function () {
                     $event.stopPropagation();
                     buf.smallClass = data;
                     var type = angular.extend({}, buf);
+                    $scope.className['active'] = false;
                     $scope.val = type;
                 };
 
