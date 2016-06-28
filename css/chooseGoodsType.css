@@ -1,0 +1,159 @@
+html,
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+iframe,
+hr {
+  margin: 0;
+  padding: 0;
+}
+:focus {
+  outline: 0;
+}
+input {
+  outline: 0;
+}
+body {
+  font: 12px/1.6 Tahoma, microsoft yahei, "微软雅黑", "宋体";
+  *font-family: "微软雅黑", "宋体";
+}
+fieldset,
+img {
+  border: 0;
+}
+address,
+caption,
+cite,
+dfn,
+em,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+ol,
+ul {
+  list-style: none;
+}
+caption,
+th {
+  text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+select,
+input,
+label,
+button,
+textarea {
+  margin: 0;
+  padding: 0;
+  font: normal normal normal "微软雅黑", arial, Simsun, Arial Unicode MS, Mingliu, Arial;
+  overflow: visible;
+}
+input {
+  padding: 2px 0 1px;
+  *padding: 4px 0 0;
+  _padding: 4px 0 0;
+  _height: 21px;
+}
+html {
+  min-width: 450px;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.show_box {
+  display: none;
+  border: 1px solid #ccc;
+  width: 602px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.show_box.active {
+  display: block;
+}
+.show_box_title {
+  height: 50px;
+  background: #f3f3f3;
+  line-height: 50px;
+}
+.show_box_title li {
+  float: left;
+  width: 200px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.show_box_title li:last-of-type {
+  border-right: none;
+}
+.show_box_title li.active {
+  background: #ffffff;
+  border-bottom: none;
+}
+.show_box_content {
+  padding: 14px 0 14px;
+  border-top: none;
+  background: #fff;
+  font-size: 14px;
+  color: #666;
+  width: 600px;
+}
+.show_box_content li {
+  display: none;
+}
+.show_box_content li.active {
+  display: block;
+}
+.show_box_content li a {
+  display: block;
+  width: 200px;
+  text-align: center;
+  line-height: 20px;
+  padding: 13px 0;
+  float: left;
+  text-decoration: none;
+  color: #848484;
+}
